@@ -13,7 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/Other Driver Default"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/hp01/workspace/ping30/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="lib" path="lib/mongodb-driver-3.4.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/mongodb-driver-3.4.1.jar"/>
 	<classpathentry kind="lib" path="lib/bson-3.0.4-sources.jar"/>
@@ -23,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
