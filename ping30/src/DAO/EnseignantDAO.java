@@ -13,15 +13,17 @@ public class EnseignantDAO extends DAO<Enseignant>{
 	public Enseignant create(Enseignant obj){
 		try {
 			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)
-					.executeQuery("SELECT last_insert_id() as id from enseignant");
+					.executeQuery("SELECT idEnseignant as id from enseignant  order by idEnseignant Desc");
 			if(result.first()){
 				int id = result.getInt("id");
 				id++;
 				PreparedStatement prepare = this.connect.prepareStatement(
-						"INSERT INTO Enseignant (idEnseignant, nomEnseignant, prenomEnseignant) VALUES(?, ?, ?)");
+						"INSERT INTO Enseignant (idEnseignant, nomEnseignant, prenomEnseignant,pwdEnseignant,emailEnseignant) VALUES(?, ?, ?,?,?)");
 				prepare.setInt(1, id);
 				prepare.setString(2, obj.getNomEnseignant());
 				prepare.setString(3, obj.getPrenomEnseignant());
+				prepare.setString(4, obj.getPwd());
+				prepare.setString(5, obj.getCourriel());
 
 				prepare.executeUpdate();
 				obj = this.find(id);	
@@ -124,6 +126,7 @@ public class EnseignantDAO extends DAO<Enseignant>{
 			.executeUpdate("UPDATE enseignant SET "
 					+ "nomEnseignant = '" + obj.getNomEnseignant() + "'"
 					+ "prenomEnseignant = " + obj.getPrenomEnseignant() + "'"
+					+ "emailEnseignant = " + obj.getCourriel() + "'"
 					+ " WHERE idEnseignant = " + obj.getIdEnseignant()
 					);           
 
@@ -139,7 +142,7 @@ public class EnseignantDAO extends DAO<Enseignant>{
 	public void delete(Enseignant obj) {
 		try {
 			this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
-			.executeUpdate("DELETE FROM enseignant WHERE idEneignant = " + obj.getIdEnseignant());
+			.executeUpdate("DELETE FROM enseignant WHERE idEnseignant = " + obj.getIdEnseignant());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

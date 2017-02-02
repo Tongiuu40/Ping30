@@ -161,6 +161,11 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			dispose();
+			  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+	    		myModifiers.setVisible(true);
+				myModifiers.runTest();
+	            
 			
 		}
 	});
@@ -248,6 +253,18 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBounds(388, 317, 103, 25);
 		contentPane.add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+		            
+			}
+		});
 		
 		JLabel lblSalle = new JLabel("Cours");
 		lblSalle.setBounds(42, 69, 63, 16);
@@ -351,7 +368,11 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+		            
 			}
 		});
 	
@@ -472,6 +493,18 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBounds(388, 317, 103, 25);
 		contentPane.add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+		            
+			}
+		});
 		
 		JLabel lblSalle = new JLabel("Salle:");
 		lblSalle.setBounds(42, 69, 63, 16);
@@ -534,6 +567,17 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBounds(388, 317, 103, 25);
 		contentPane.add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
 		
 		JLabel lblSalle = new JLabel("Salle:");
 		lblSalle.setBounds(42, 69, 63, 16);
@@ -596,7 +640,17 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBounds(388, 317, 103, 25);
 		contentPane.add(btnAnnuler);
-		
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
 		JLabel lblSalle = new JLabel("Salle:");
 		lblSalle.setBounds(42, 69, 63, 16);
 		contentPane.add(lblSalle);
@@ -683,21 +737,219 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 		btnNewButton.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 16));
 		btnNewButton.setBounds(193, 459, 162, 34);
 		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String nom = textField.getText();
+				String prenom = textField_1.getText();
+				String courriel = textField_2.getText();
+				String pwd = passwordField.getText();
+				System.out.println(nom+prenom+courriel+pwd);
+				newEnseignant = new Enseignant(nom,prenom, courriel, pwd);
+				mEnseignantDAO.create(newEnseignant);
+				
+			}
+		});
 		
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 16));
 		btnAnnuler.setBounds(469, 459, 162, 34);
 		contentPane.add(btnAnnuler);
-		mEnseignantDAO.create(newEnseignant);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
 		return newEnseignant;
 	}
 	public void SupEnseignant(){
+		JFrame frmLogin;
+
+		frmLogin = new JFrame();
+		frmLogin.setTitle("Enseignant");
+		frmLogin.getContentPane().setBackground(Color.WHITE);
+		frmLogin.getContentPane().setLayout(null);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(197, 315, 497, 34);
+		frmLogin.getContentPane().add(lblNewLabel);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Bookman Old Style", Font.BOLD, 17));
+		comboBox.setBounds(197, 185, 497, 34);
+		frmLogin.getContentPane().add(comboBox);
 		
-		mEnseignantDAO.delete(newEnseignant);
+		ArrayList<Enseignant> myEnseignants=mEnseignantDAO.getAll();
+		for (Enseignant enseignant : myEnseignants) {
+			comboBox.addItem(enseignant);
+			comboBox.addItemListener(new ItemListener() {
+				
+				@Override
+				public void itemStateChanged(ItemEvent e) {
+					// TODO Auto-generated method stub
+					
+					  Enseignant sa = (Enseignant) comboBox.getSelectedItem();
+					  String stringss ="Nom: "+sa.getNomEnseignant()+" Prenom: "+sa.getPrenomEnseignant();
+					  lblNewLabel.setText(stringss);
+					
+				}
+			});
+		}
+		
+		JButton btnNewButton = new JButton("Supprimer");
+		btnNewButton.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnNewButton.setBounds(197, 431, 177, 34);
+		frmLogin.getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				  Enseignant sa = (Enseignant) comboBox.getSelectedItem();
+				
+				mEnseignantDAO.delete(sa);
+			}
+		});
+		
+		JButton btnNewButton_1 = new JButton("Annuler");
+		btnNewButton_1.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnNewButton_1.setBounds(513, 430, 177, 34);
+		frmLogin.getContentPane().add(btnNewButton_1);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
+		
+		
+		String filename="./lib/tests.jpg";
+		frmLogin.setBackground(new Color(255, 255, 255));
+		frmLogin.setForeground(new Color(135, 206, 235));
+		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+		frmLogin.setType(Type.UTILITY);
+		frmLogin.setBounds(100, 100, 877, 651);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.setVisible(true);
 	}
 	public Enseignant ModEnseignant(){
+		JFrame frmLogin;
+		 JTextField textnom;
+		 JTextField textprenom;
+		 JTextField textcourriel;
+
+		frmLogin = new JFrame();
+		frmLogin.setTitle("Enseignant");
+		frmLogin.getContentPane().setBackground(Color.WHITE);
+		frmLogin.getContentPane().setLayout(null);
+		JLabel lblNom = new JLabel("Nom:");
+		lblNom.setFont(new Font("Arial", Font.BOLD, 17));
+		lblNom.setBounds(197, 204, 84, 34);
+		frmLogin.getContentPane().add(lblNom);
 		
-		mEnseignantDAO.update(newEnseignant);
+		JLabel lblPrenom = new JLabel("Prenom: ");
+		lblPrenom.setFont(new Font("Arial", Font.BOLD, 17));
+		lblPrenom.setBounds(197, 269, 84, 34);
+		frmLogin.getContentPane().add(lblPrenom);
+		
+		JLabel lblCourriel = new JLabel("Courriel:");
+		lblCourriel.setFont(new Font("Arial", Font.BOLD, 17));
+		lblCourriel.setBounds(197, 332, 84, 34);
+		frmLogin.getContentPane().add(lblCourriel);
+		
+		textnom = new JTextField();
+		textnom.setBounds(417, 208, 277, 29);
+		frmLogin.getContentPane().add(textnom);
+		textnom.setColumns(10);
+		
+		textprenom = new JTextField();
+		textprenom.setColumns(10);
+		textprenom.setBounds(417, 276, 277, 29);
+		frmLogin.getContentPane().add(textprenom);
+		
+		textcourriel = new JTextField();
+		textcourriel.setColumns(10);
+		textcourriel.setBounds(417, 339, 277, 29);
+		frmLogin.getContentPane().add(textcourriel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Bookman Old Style", Font.BOLD, 17));
+		comboBox.setBounds(197, 107, 497, 34);
+		frmLogin.getContentPane().add(comboBox);
+		ArrayList<Enseignant> myEnseignants=mEnseignantDAO.getAll();
+		for (Enseignant enseignant : myEnseignants) {
+			comboBox.addItem(enseignant);
+		}
+		comboBox.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				  Enseignant sa = (Enseignant) comboBox.getSelectedItem();
+				 textnom.setText(sa.getNomEnseignant());
+				 textprenom.setText(sa.getPrenomEnseignant());
+				 textcourriel.setText(sa.getCourriel());
+				 
+			}
+		});
+		
+		JButton btnModifier = new JButton("Modifier");
+		btnModifier.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnModifier.setBounds(197, 431, 177, 34);
+		frmLogin.getContentPane().add(btnModifier);
+		btnModifier.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				  Enseignant sa = (Enseignant) comboBox.getSelectedItem();
+				  sa.setCourriel(textcourriel.getText());
+				  sa.setNomEnseignant(textnom.getText());
+				  sa.setPrenomEnseignant(textprenom.getText());
+				mEnseignantDAO.update(sa);
+			}
+		});
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setFont(new Font("Calibri", Font.BOLD, 18));
+		btnAnnuler.setBounds(513, 430, 177, 34);
+		frmLogin.getContentPane().add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+				
+			}
+		});
+		
+		
+		String filename="./lib/tests.jpg";
+		frmLogin.setBackground(new Color(255, 255, 255));
+		frmLogin.setForeground(new Color(135, 206, 235));
+		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+		frmLogin.setType(Type.UTILITY);
+		frmLogin.setBounds(100, 100, 877, 651);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.setVisible(true);
+		
+		
+	
 		return newEnseignant;
 	}
 	

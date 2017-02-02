@@ -3,7 +3,9 @@ package ping30;
 public class Enseignant {
 	int idEnseignant;
 	public String email;
-	public String pwd;
+	String nomEnseignant;
+	String prenomEnseignant;
+	String pwd;
 	@Override
 	public String toString() {
 		return "Enseignant [idEnseignant=" + idEnseignant + ", nomEnseignant=" + nomEnseignant + ", prenomEnseignant="
@@ -24,6 +26,15 @@ public class Enseignant {
 	public String getPrenomEnseignant() {
 		return prenomEnseignant;
 	}
+	public void setCourriel(String mail){
+		this.email=mail;
+	}
+	public String getPwd(){
+		return pwd;
+	}
+	public String getCourriel(){
+		return email;
+	}
 	public void setPrenomEnseignant(String prenomEnseignant) {
 		this.prenomEnseignant = prenomEnseignant;
 	}
@@ -33,7 +44,15 @@ public class Enseignant {
 		this.nomEnseignant = nomEnseignant;
 		this.prenomEnseignant = prenomEnseignant;
 	}
+	public Enseignant(String nomEnseignant, String prenomEnseignant,String email,String pwd) {
+		super();
+		
+		this.nomEnseignant = nomEnseignant;
+		this.prenomEnseignant = prenomEnseignant;
+		this.email=email;
+		this.pwd=pwd;
+		
+	}
 	public Enseignant(){}
-	String nomEnseignant;
-	String prenomEnseignant;
+
 }

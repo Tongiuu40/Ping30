@@ -290,11 +290,14 @@ public class Modifiers extends JFrame implements ActionListener{
 
 			break;
 		case "Supperimer Enseignant":
-			System.out.println("9");
-
+			dispose();
+			myfentres.SupEnseignant();
+			//myfentres.setVisible(true);
+			
 			break;
 		case "Modier Enseignant":
-			System.out.println("10");
+			dispose();
+			myfentres.ModEnseignant();
 
 			break;
 		case "Ajouter Etudiant":

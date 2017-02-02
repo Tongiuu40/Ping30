@@ -18,18 +18,13 @@ public class EssayFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void main(String[] args) {
+	
+		
 					EssayFrame window = new EssayFrame();
 					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+		
+	}
 
 	/**
 	 * Create the application.
