@@ -94,7 +94,7 @@ public class Login extends JFrame implements ActionListener{
           this.add(jp3);  
           this.add(jp4);  
           this.setLayout(new GridLayout(4,1));  
-          this.setTitle("LOGIN PAGE");  
+          this.setTitle("LOGIN");  
 
           this.setSize(300,200);  
           

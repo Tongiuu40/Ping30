@@ -47,12 +47,14 @@ public class Absenntttt extends JFrame{
 		
 		String[] title = {"Nom","Prenom","Presence","Date"};
 	
-		String[][] ssObjects={{"Nom","Prenom","Presence","Date"},{"Nom","Prenom","Presence","Date"}};
+		String[][] ssObjects={{"1","Serais Sebastien","Presence","Maths"},{"2","John Doe","Absence","Sports"},{"3","congyi shi","Presence","Maths"},{"4","xa wabg","Presence","Sports"}};
+		ArrayList<PresenceEtudiant> lists=ssDao.getAll();
+		
 		table = new JTable(ssObjects,title);
 		table.setBounds(298, 11, 535, 559);
 		contentPane.add(table);
 		
-		JLabel lblNomPrenom = new JLabel(courschoix.getNomCours());
+		JLabel lblNomPrenom = new JLabel("Cours: "+courschoix.getNomCours());
 		lblNomPrenom.setBounds(12, 27, 161, 40);
 		contentPane.add(lblNomPrenom);
 	}

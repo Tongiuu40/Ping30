@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.TextField;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
@@ -1340,18 +1341,232 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 		return newEnseignant;
 	}
 	
-	public PresenceEtudiant CrListe(){
-	
-		mPresenceEtudiantDAO.create(nPresenceEtudiant);
+	public PresenceEtudiant CrListe() throws ParseException{
+		JFrame frmLogin;
+		frmLogin = new JFrame();
+		frmLogin.getContentPane().setBackground(Color.WHITE);
+		frmLogin.setTitle("Listes");
+		String filename="./lib/tests.jpg";
+		frmLogin.setBackground(new Color(255, 255, 255));
+		frmLogin.setForeground(new Color(135, 206, 235));
+		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+		frmLogin.setType(Type.UTILITY);
+		frmLogin.setBounds(100, 100, 884, 524);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(251, 102, 394, 31);
+		frmLogin.getContentPane().add(comboBox);
+		ArrayList<Etudiant> lEtudiants = mEtudiantDAO.getAll();
+		for (Etudiant etudiant : lEtudiants) {
+			comboBox.addItem(etudiant);
+		}
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(251, 177, 394, 31);
+		frmLogin.getContentPane().add(comboBox_1);
+		ArrayList<Cours> lCours=mCoursDAO.getAll();
+		for (Cours cours : lCours) {
+			comboBox_1.addItem(cours);
+		}
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(251, 252, 394, 31);
+		frmLogin.getContentPane().add(comboBox_2);
+		comboBox_2.addItem("Presence");
+		comboBox_2.addItem("Absence");
+
+		
+		JButton btnEnseigner = new JButton("Enseigner");
+		btnEnseigner.setBounds(210, 384, 169, 31);
+		frmLogin.getContentPane().add(btnEnseigner);
+		btnEnseigner.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				nPresenceEtudiant.setIdEtudiant(((Etudiant)comboBox.getSelectedItem()).getIdEtudiant());
+				nPresenceEtudiant.setIdCours(((Cours)comboBox_1.getSelectedItem()).getIdCours());
+				if(comboBox_2.getSelectedItem()=="Presence"){nPresenceEtudiant.setPresence(true);}
+				else{nPresenceEtudiant.setPresence(false);}
+				mPresenceEtudiantDAO.create(nPresenceEtudiant);
+			}
+		});
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setBounds(511, 384, 169, 31);
+		frmLogin.getContentPane().add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
+		
+		JLabel lblEtudiant = new JLabel("Etudiant");
+		lblEtudiant.setBounds(120, 109, 63, 16);
+		frmLogin.getContentPane().add(lblEtudiant);
+		
+		JLabel lblCours = new JLabel("Cours");
+		lblCours.setBounds(120, 184, 63, 16);
+		frmLogin.getContentPane().add(lblCours);
+		
+		JLabel lblPresence = new JLabel("Presence");
+		lblPresence.setBounds(120, 259, 63, 16);
+		frmLogin.getContentPane().add(lblPresence);
+		
+		
+		
+		frmLogin.setVisible(true);
 		return nPresenceEtudiant;
 	}
-	public void SupListe(){
+	public void SupListe() throws ParseException{
 		
-		mPresenceEtudiantDAO.delete(nPresenceEtudiant);
-	}
-	public PresenceEtudiant ModListe(){
+		JFrame frmLogin;
+		frmLogin = new JFrame();
+		frmLogin.getContentPane().setBackground(Color.WHITE);
+		frmLogin.setTitle("Listes");
+		String filename="./lib/tests.jpg";
+		frmLogin.setBackground(new Color(255, 255, 255));
+		frmLogin.setForeground(new Color(135, 206, 235));
+		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+		frmLogin.setType(Type.UTILITY);
+		frmLogin.setBounds(100, 100, 884, 524);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(251, 102, 394, 31);
+		frmLogin.getContentPane().add(comboBox);
+		
+		ArrayList<PresenceEtudiant> ll = mPresenceEtudiantDAO.getAll();
+		for (PresenceEtudiant presenceEtudiant : ll) {
+			comboBox.addItem(presenceEtudiant);
+		}
+		
+		JButton btnEnseigner = new JButton("Supprimer");
+		btnEnseigner.setBounds(210, 384, 169, 31);
+		frmLogin.getContentPane().add(btnEnseigner);
+		btnEnseigner.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				nPresenceEtudiant=(PresenceEtudiant)comboBox.getSelectedItem();
+				mPresenceEtudiantDAO.delete(nPresenceEtudiant);
+			}
+		});
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setBounds(511, 384, 169, 31);
+		frmLogin.getContentPane().add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
+		
+		JLabel lblEtudiant = new JLabel("Listes");
+		lblEtudiant.setBounds(120, 109, 63, 16);
+		frmLogin.getContentPane().add(lblEtudiant);
+		
+		
+		frmLogin.setVisible(true);
 	
-		mPresenceEtudiantDAO.update(nPresenceEtudiant);
+	}
+	public PresenceEtudiant ModListe() throws ParseException{
+	
+		JFrame frmLogin;
+		frmLogin = new JFrame();
+		frmLogin.getContentPane().setBackground(Color.WHITE);
+		frmLogin.setTitle("Listes");
+		String filename="./lib/tests.jpg";
+		frmLogin.setBackground(new Color(255, 255, 255));
+		frmLogin.setForeground(new Color(135, 206, 235));
+		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+		frmLogin.setType(Type.UTILITY);
+		frmLogin.setBounds(100, 100, 884, 524);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(null);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblNewLabel.setBounds(210, 170, 388, 31);
+		frmLogin.getContentPane().add(lblNewLabel);
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(468, 275, 177, 31);
+		frmLogin.getContentPane().add(comboBox_1);
+		comboBox_1.addItem("Presence");
+		comboBox_1.addItem("Absence");
+		
+		JLabel label = new JLabel("");
+		label.setFont(new Font("Calibri", Font.BOLD, 16));
+		label.setBounds(210, 223, 388, 31);
+		frmLogin.getContentPane().add(label);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(251, 102, 394, 31);
+		frmLogin.getContentPane().add(comboBox);
+		ArrayList<PresenceEtudiant> lPresenceEtudiants=mPresenceEtudiantDAO.getAll();
+		for (PresenceEtudiant presenceEtudiant : lPresenceEtudiants) {
+			comboBox.addItem(presenceEtudiant);
+		}
+		comboBox.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				String nom=mEtudiantDAO.find(((PresenceEtudiant)comboBox.getSelectedItem()).getIdEtudiant()).getNomEtudiant()+" "+mEtudiantDAO.find(((PresenceEtudiant)comboBox.getSelectedItem()).getIdEtudiant()).getPrenomEtudiant();
+				lblNewLabel.setText(nom);
+				String cours=mCoursDAO.find(((PresenceEtudiant)comboBox.getSelectedItem()).getIdCours()).getNomCours();
+				label.setText(cours);
+			}
+		});
+		
+		JButton btnEnseigner = new JButton("Modifier");
+		btnEnseigner.setBounds(210, 384, 169, 31);
+		frmLogin.getContentPane().add(btnEnseigner);
+		btnEnseigner.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String ssss=(String)comboBox_1.getSelectedItem();
+				nPresenceEtudiant = (PresenceEtudiant) comboBox.getSelectedItem();
+				if(ssss=="Presence"){nPresenceEtudiant.setPresence(true);}
+				else{nPresenceEtudiant.setPresence(false);}
+				mPresenceEtudiantDAO.update(nPresenceEtudiant);
+			}
+		});
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setBounds(511, 384, 169, 31);
+		frmLogin.getContentPane().add(btnAnnuler);
+		
+		JLabel lblEtudiant = new JLabel("Listes");
+		lblEtudiant.setBounds(120, 109, 63, 16);
+		frmLogin.getContentPane().add(lblEtudiant);
+		
+	
+		
+		JLabel lblStatus = new JLabel("Status");
+		lblStatus.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblStatus.setBounds(210, 281, 155, 31);
+		frmLogin.getContentPane().add(lblStatus);
+		
+	
+		
+		frmLogin.setVisible(true);
 		return nPresenceEtudiant;
 	}
 

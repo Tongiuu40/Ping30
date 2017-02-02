@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Choice;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 public class examples {
 
@@ -59,48 +60,50 @@ public class examples {
 	private void initialize() {
 		frmLogin = new JFrame();
 		frmLogin.getContentPane().setBackground(Color.WHITE);
-		frmLogin.setTitle("Etudiant");
+		frmLogin.setTitle("Listes");
 		String filename="./lib/tests.jpg";
 		frmLogin.setBackground(new Color(255, 255, 255));
 		frmLogin.setForeground(new Color(135, 206, 235));
 		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
 		frmLogin.setType(Type.UTILITY);
-		frmLogin.setBounds(100, 100, 877, 651);
+		frmLogin.setBounds(100, 100, 884, 524);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(null);
 		
-		JLabel lblCreerEtudiant = new JLabel("Supprimer Etudiant");
-		lblCreerEtudiant.setFont(new Font("Calibri", Font.BOLD, 18));
-		lblCreerEtudiant.setBounds(12, 22, 162, 45);
-		frmLogin.getContentPane().add(lblCreerEtudiant);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(251, 102, 394, 31);
+		frmLogin.getContentPane().add(comboBox);
 		
-		JComboBox etudiantchoix = new JComboBox();
-		etudiantchoix.setBounds(363, 275, 305, 26);
-		frmLogin.getContentPane().add(etudiantchoix);
-		
-		JComboBox groupchoix = new JComboBox();
-		groupchoix.setBounds(363, 154, 305, 26);
-		frmLogin.getContentPane().add(groupchoix);
-		
-		JLabel label = new JLabel("Groupe:");
-		label.setFont(new Font("Calibri", Font.BOLD, 16));
-		label.setBounds(191, 153, 107, 30);
-		frmLogin.getContentPane().add(label);
-		
-		JLabel lblEtudiant = new JLabel("Etudiant:");
-		lblEtudiant.setFont(new Font("Calibri", Font.BOLD, 16));
-		lblEtudiant.setBounds(191, 274, 77, 30);
-		frmLogin.getContentPane().add(lblEtudiant);
-		
-		JButton btnNewButton = new JButton("Enseigner");
-		btnNewButton.setFont(new Font("Calibri", Font.BOLD, 17));
-		btnNewButton.setBounds(168, 450, 203, 30);
-		frmLogin.getContentPane().add(btnNewButton);
+		JButton btnEnseigner = new JButton("Modifier");
+		btnEnseigner.setBounds(210, 384, 169, 31);
+		frmLogin.getContentPane().add(btnEnseigner);
 		
 		JButton btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setFont(new Font("Calibri", Font.BOLD, 17));
-		btnAnnuler.setBounds(513, 450, 203, 30);
+		btnAnnuler.setBounds(511, 384, 169, 31);
 		frmLogin.getContentPane().add(btnAnnuler);
+		
+		JLabel lblEtudiant = new JLabel("Listes");
+		lblEtudiant.setBounds(120, 109, 63, 16);
+		frmLogin.getContentPane().add(lblEtudiant);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblNewLabel.setBounds(210, 170, 388, 31);
+		frmLogin.getContentPane().add(lblNewLabel);
+		
+		JLabel label = new JLabel("New label");
+		label.setFont(new Font("Calibri", Font.BOLD, 16));
+		label.setBounds(210, 223, 388, 31);
+		frmLogin.getContentPane().add(label);
+		
+		JLabel lblStatus = new JLabel("Status");
+		lblStatus.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblStatus.setBounds(210, 281, 155, 31);
+		frmLogin.getContentPane().add(lblStatus);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(468, 275, 177, 31);
+		frmLogin.getContentPane().add(comboBox_1);
 		
 		
 	}

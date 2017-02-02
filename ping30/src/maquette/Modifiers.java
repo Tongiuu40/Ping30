@@ -254,15 +254,36 @@ public class Modifiers extends JFrame implements ActionListener{
 
 			break;
 		case "Ajouter liste d'absence":
-			System.out.println("2");
+			dispose();
+			myfentres.dispose();
+			try {
+				myfentres.CrListe();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			break;
 		case "Supperimer liste d'absence":
-			System.out.println("3");
+			dispose();
+			myfentres.dispose();
+			try {
+				myfentres.SupListe();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			break;
 		case "Modier liste d'absence":
-			System.out.println("4");
+			dispose();
+			myfentres.dispose();
+			try {
+				myfentres.ModListe();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 			break;
 		case "Ajouter Salles":

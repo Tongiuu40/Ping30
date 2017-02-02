@@ -7,21 +7,23 @@ import javax.naming.spi.DirStateFactory.Result;
 
 import ping30.Cours;
 import ping30.PresenceEtudiant;
+import ping30.Salle;
 
 public class PresenceEtudiantDAO extends DAO<PresenceEtudiant>{
 	public PresenceEtudiant create(PresenceEtudiant obj){
 		try {
 			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
-					.executeQuery("SELECT last_insert_id() as id from presence");
+					.executeQuery("SELECT idPresence as id from presence order by idPresence DESC");
 			if(result.first()){
 				int id = result.getInt("id");
 				id++;
 				PreparedStatement prepare = this.connect.prepareStatement(
-						"INSERT INTO Presence (idPresence, idEtudiant, idCours, presence) VALUES(?, ?,?, ?)");
+						"INSERT INTO Presence (idPresence, idEtudiant, idCours, presenceEtudiant) VALUES(?, ?,?, ?)");
 				prepare.setInt(1, id);
 				prepare.setInt(2, obj.getIdEtudiant());
 				prepare.setInt(3, obj.getIdCours());
-				prepare.setBoolean(4, obj.getPresence());
+				if(obj.getPresence()){
+				prepare.setBoolean(4,true);}else{prepare.setBoolean(4,false);}
 				prepare.executeUpdate();
 				obj = this.find(id);	
 			}
@@ -71,7 +73,7 @@ public class PresenceEtudiantDAO extends DAO<PresenceEtudiant>{
 						id, 
 						result.getInt("idEtudiant"),
 						result.getInt("idCours"),
-						result.getBoolean("presence")
+						result.getBoolean("presenceEtudiant")
 						);
 
 		} catch (SQLException e) {
@@ -86,12 +88,12 @@ public class PresenceEtudiantDAO extends DAO<PresenceEtudiant>{
 		try {
 			this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
 			.executeUpdate(
-					"UPDATE groupePresence SET "
-							+ "idPresence = '" + obj.getIdPresence() + "'"
-							+ "idEtudiant = '" + obj.getIdEtudiant() + "'"
-							+ "idCours = '" + obj.getIdCours() + "'"
-							+ "presence = '" + obj.getPresence() + "'"
-							+ " WHERE idPresence = " + obj.getIdPresence()
+					"UPDATE presence SET "
+							+ "idPresence = " + obj.getIdPresence() + ", "
+							+ "idEtudiant = " + obj.getIdEtudiant() + ", "
+							+ "idCours = " + obj.getIdCours() + ", "
+							+ "presenceEtudiant = " + obj.getPresence() + " "
+							+ " WHERE idPresence = " + obj.getIdPresence()+""
 					);           
 
 			obj = this.find(obj.getIdPresence());
@@ -102,6 +104,34 @@ public class PresenceEtudiantDAO extends DAO<PresenceEtudiant>{
 		return obj;
 	}
 
+	public ArrayList<PresenceEtudiant> getAll(){
+		ArrayList<PresenceEtudiant> list = new ArrayList<PresenceEtudiant>();
+		try {
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
+					.executeQuery("SELECT * FROM presence ");
+			if(result!=null){
+			while(result.next()){
+				
+			    
+				PresenceEtudiant presence = new PresenceEtudiant(
+						
+						result.getInt("idPresence"),
+						result.getInt("idEtudiant"),
+						result.getInt("idCours"),
+						result.getBoolean("presenceEtudiant")
+						
+						);
+				
+				list.add(presence);
+				}
+		
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	public void delete(PresenceEtudiant obj) {
 		try {	
