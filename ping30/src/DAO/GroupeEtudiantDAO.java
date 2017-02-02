@@ -1,8 +1,10 @@
 package DAO;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import ping30.GroupeEtudiant;
+import ping30.Salle;
 
 public class GroupeEtudiantDAO extends DAO<GroupeEtudiant>{
 	public GroupeEtudiant create(GroupeEtudiant obj){
@@ -27,7 +29,33 @@ public class GroupeEtudiantDAO extends DAO<GroupeEtudiant>{
 		}
 		return obj;
 	}
+	
+	public ArrayList<GroupeEtudiant> getAll(){
+		ArrayList<GroupeEtudiant> list = new ArrayList<GroupeEtudiant>();
+		try {
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
+					.executeQuery("SELECT * FROM groupeetudiant ");
+			if(result!=null){
+			while(result.next()){
+				
+			    
+				GroupeEtudiant groupeetudiant = new GroupeEtudiant(
+						
+						result.getInt("idGroupeEtudiant"),
+						result.getString("nomGroupe")
+						
+						);
+				
+				list.add(groupeetudiant);
+				}
+		
+			}
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	public GroupeEtudiant find(int id) {
 		GroupeEtudiant groupeGroupeEtudiant = new GroupeEtudiant();

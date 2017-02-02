@@ -18,9 +18,6 @@ import javax.swing.JComboBox;
 public class examples {
 
 	private JFrame frmLogin;
-	private JTextField textnom;
-	private JTextField textprenom;
-	private JTextField textcourriel;
 
 	/**
 	 * Launch the application.
@@ -61,54 +58,8 @@ public class examples {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
-		frmLogin.setTitle("Enseignant");
 		frmLogin.getContentPane().setBackground(Color.WHITE);
-		frmLogin.getContentPane().setLayout(null);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Bookman Old Style", Font.BOLD, 17));
-		comboBox.setBounds(197, 107, 497, 34);
-		frmLogin.getContentPane().add(comboBox);
-		
-		JButton btnModifier = new JButton("Modifier");
-		btnModifier.setFont(new Font("Calibri", Font.BOLD, 17));
-		btnModifier.setBounds(197, 431, 177, 34);
-		frmLogin.getContentPane().add(btnModifier);
-		
-		JButton btnAnnuler = new JButton("Annuler");
-		btnAnnuler.setFont(new Font("Calibri", Font.BOLD, 18));
-		btnAnnuler.setBounds(513, 430, 177, 34);
-		frmLogin.getContentPane().add(btnAnnuler);
-		
-		JLabel lblNom = new JLabel("Nom:");
-		lblNom.setFont(new Font("Arial", Font.BOLD, 17));
-		lblNom.setBounds(197, 204, 84, 34);
-		frmLogin.getContentPane().add(lblNom);
-		
-		JLabel lblPrenom = new JLabel("Prenom: ");
-		lblPrenom.setFont(new Font("Arial", Font.BOLD, 17));
-		lblPrenom.setBounds(197, 269, 84, 34);
-		frmLogin.getContentPane().add(lblPrenom);
-		
-		JLabel lblCourriel = new JLabel("Courriel:");
-		lblCourriel.setFont(new Font("Arial", Font.BOLD, 17));
-		lblCourriel.setBounds(197, 332, 84, 34);
-		frmLogin.getContentPane().add(lblCourriel);
-		
-		textnom = new JTextField();
-		textnom.setBounds(417, 208, 277, 29);
-		frmLogin.getContentPane().add(textnom);
-		textnom.setColumns(10);
-		
-		textprenom = new JTextField();
-		textprenom.setColumns(10);
-		textprenom.setBounds(417, 276, 277, 29);
-		frmLogin.getContentPane().add(textprenom);
-		
-		textcourriel = new JTextField();
-		textcourriel.setColumns(10);
-		textcourriel.setBounds(417, 339, 277, 29);
-		frmLogin.getContentPane().add(textcourriel);
+		frmLogin.setTitle("Etudiant");
 		String filename="./lib/tests.jpg";
 		frmLogin.setBackground(new Color(255, 255, 255));
 		frmLogin.setForeground(new Color(135, 206, 235));
@@ -116,5 +67,41 @@ public class examples {
 		frmLogin.setType(Type.UTILITY);
 		frmLogin.setBounds(100, 100, 877, 651);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(null);
+		
+		JLabel lblCreerEtudiant = new JLabel("Supprimer Etudiant");
+		lblCreerEtudiant.setFont(new Font("Calibri", Font.BOLD, 18));
+		lblCreerEtudiant.setBounds(12, 22, 162, 45);
+		frmLogin.getContentPane().add(lblCreerEtudiant);
+		
+		JComboBox etudiantchoix = new JComboBox();
+		etudiantchoix.setBounds(363, 275, 305, 26);
+		frmLogin.getContentPane().add(etudiantchoix);
+		
+		JComboBox groupchoix = new JComboBox();
+		groupchoix.setBounds(363, 154, 305, 26);
+		frmLogin.getContentPane().add(groupchoix);
+		
+		JLabel label = new JLabel("Groupe:");
+		label.setFont(new Font("Calibri", Font.BOLD, 16));
+		label.setBounds(191, 153, 107, 30);
+		frmLogin.getContentPane().add(label);
+		
+		JLabel lblEtudiant = new JLabel("Etudiant:");
+		lblEtudiant.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblEtudiant.setBounds(191, 274, 77, 30);
+		frmLogin.getContentPane().add(lblEtudiant);
+		
+		JButton btnNewButton = new JButton("Enseigner");
+		btnNewButton.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnNewButton.setBounds(168, 450, 203, 30);
+		frmLogin.getContentPane().add(btnNewButton);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnAnnuler.setBounds(513, 450, 203, 30);
+		frmLogin.getContentPane().add(btnAnnuler);
+		
+		
 	}
 }

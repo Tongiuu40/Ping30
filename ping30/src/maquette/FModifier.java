@@ -33,12 +33,14 @@ import org.jdatepicker.impl.UtilDateModel;
 import DAO.CoursDAO;
 import DAO.EnseignantDAO;
 import DAO.EtudiantDAO;
+import DAO.GroupeEtudiantDAO;
 import DAO.PresenceEtudiantDAO;
 import DAO.SalleDAO;
 import ping30.Cours;
 import ping30.DateLabelFormatter;
 import ping30.Enseignant;
 import ping30.Etudiant;
+import ping30.GroupeEtudiant;
 import ping30.Main;
 import ping30.PresenceEtudiant;
 import ping30.Salle;
@@ -48,18 +50,19 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 	private JTextField textField;
 	JTextField txtSss ;
 
-	
+	int idg;
 	Salle newSalle = new Salle();
 	SalleDAO mSalleDAO = new SalleDAO();
 	Cours newCour = new Cours();
 	CoursDAO mCoursDAO =  new CoursDAO();
 	Etudiant newEtudiant = new Etudiant();
+	GroupeEtudiant groupeEtudiant=new GroupeEtudiant();
 	EtudiantDAO mEtudiantDAO = new EtudiantDAO();
 	Enseignant newEnseignant = new Enseignant();
 	EnseignantDAO mEnseignantDAO = new EnseignantDAO();
 	PresenceEtudiant nPresenceEtudiant = new PresenceEtudiant();
 	PresenceEtudiantDAO mPresenceEtudiantDAO = new PresenceEtudiantDAO();
-
+	GroupeEtudiantDAO mGroupeEtudiantDAO = new GroupeEtudiantDAO();
 	
 	public FModifier(){
 		
@@ -665,17 +668,401 @@ public class FModifier extends JFrame implements ItemListener,ActionListener {
 	
 	
 	public Etudiant CrEtudiant(){
-	
-		mEtudiantDAO.create(newEtudiant);
+		 JFrame frmLogin;
+		 JTextField tnom;
+		 JTextField tprenom;
+		 JTextField tinn;
+		 JTextField tphoto;
+		 
+			frmLogin = new JFrame();
+			frmLogin.getContentPane().setBackground(Color.WHITE);
+			frmLogin.setTitle("Etudiant");
+			String filename="./lib/tests.jpg";
+			frmLogin.setBackground(new Color(255, 255, 255));
+			frmLogin.setForeground(new Color(135, 206, 235));
+			frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+			frmLogin.setType(Type.UTILITY);
+			frmLogin.setBounds(100, 100, 877, 651);
+			frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frmLogin.getContentPane().setLayout(null);
+			
+			JLabel lblNom = new JLabel("Nom:");
+			lblNom.setFont(new Font("Calibri", Font.BOLD, 16));
+			lblNom.setBounds(172, 147, 107, 30);
+			frmLogin.getContentPane().add(lblNom);
+			
+			JLabel lblPrenom = new JLabel("Prenom:");
+			lblPrenom.setFont(new Font("Calibri", Font.BOLD, 16));
+			lblPrenom.setBounds(172, 200, 107, 30);
+			frmLogin.getContentPane().add(lblPrenom);
+			
+			JLabel lblGroupe = new JLabel("Groupe:");
+			lblGroupe.setFont(new Font("Calibri", Font.BOLD, 16));
+			lblGroupe.setBounds(172, 254, 107, 30);
+			frmLogin.getContentPane().add(lblGroupe);
+			
+			JLabel lblIneetudiant = new JLabel("INEEtudiant:");
+			lblIneetudiant.setFont(new Font("Calibri", Font.BOLD, 16));
+			lblIneetudiant.setBounds(172, 314, 107, 30);
+			frmLogin.getContentPane().add(lblIneetudiant);
+			
+			JLabel lblCreerEtudiant = new JLabel("Créer Etudiant");
+			lblCreerEtudiant.setFont(new Font("Calibri", Font.BOLD, 18));
+			lblCreerEtudiant.setBounds(12, 22, 162, 45);
+			frmLogin.getContentPane().add(lblCreerEtudiant);
+			
+			JLabel lblPhoto = new JLabel("Photo");
+			lblPhoto.setFont(new Font("Calibri", Font.BOLD, 16));
+			lblPhoto.setBounds(172, 374, 107, 30);
+			frmLogin.getContentPane().add(lblPhoto);
+			
+			tnom = new JTextField();
+			tnom.setFont(new Font("Calibri", Font.BOLD, 16));
+			tnom.setBounds(405, 148, 327, 27);
+			frmLogin.getContentPane().add(tnom);
+			tnom.setColumns(10);
+			
+			tprenom = new JTextField();
+			tprenom.setFont(new Font("Calibri", Font.BOLD, 16));
+			tprenom.setColumns(10);
+			tprenom.setBounds(405, 203, 327, 27);
+			frmLogin.getContentPane().add(tprenom);
+			
+			tinn = new JTextField();
+			tinn.setFont(new Font("Calibri", Font.BOLD, 16));
+			tinn.setColumns(10);
+			tinn.setBounds(405, 316, 327, 27);
+			frmLogin.getContentPane().add(tinn);
+			
+			tphoto = new JTextField();
+			tphoto.setFont(new Font("Calibri", Font.BOLD, 16));
+			tphoto.setColumns(10);
+			tphoto.setBounds(405, 377, 327, 27);
+			frmLogin.getContentPane().add(tphoto);
+			
+			
+			
+			JComboBox comboBox = new JComboBox();
+			comboBox.setBounds(405, 257, 327, 27);
+			frmLogin.getContentPane().add(comboBox);
+			ArrayList<GroupeEtudiant> listg = mGroupeEtudiantDAO.getAll();
+			for (GroupeEtudiant groupeEtudiant : listg) {
+				comboBox.addItem(groupeEtudiant);
+			}
+			
+			JButton btnNewButton = new JButton("Enseigner");
+			btnNewButton.setFont(new Font("Calibri", Font.BOLD, 17));
+			btnNewButton.setBounds(172, 478, 203, 30);
+			frmLogin.getContentPane().add(btnNewButton);
+			btnNewButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					groupeEtudiant=(GroupeEtudiant)comboBox.getSelectedItem();
+					newEtudiant.setIdGroupeEtudiant(groupeEtudiant.getIdGroupeEtudiant());
+					newEtudiant.setAdressePhoto(tphoto.getText());
+					newEtudiant.setINEEtudiant(Integer.valueOf(tinn.getText()));
+					newEtudiant.setNomEtudiant(tnom.getText());
+					newEtudiant.setPrenomEtudiant(tprenom.getText());
+					mEtudiantDAO.create(newEtudiant);
+					
+				}
+			});
+			
+			JButton btnAnnuler = new JButton("Annuler");
+			btnAnnuler.setFont(new Font("Calibri", Font.BOLD, 17));
+			btnAnnuler.setBounds(513, 478, 203, 30);
+			frmLogin.getContentPane().add(btnAnnuler);
+			btnAnnuler.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					dispose();
+					  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+			    		myModifiers.setVisible(true);
+						myModifiers.runTest();
+				}
+			});
+			
+			
+			frmLogin.setVisible(true);
 		return newEtudiant;
 	}
 	public void SupEtudiant(){
+		 JFrame frmLogin;
 	
-		mEtudiantDAO.delete(newEtudiant);
+		frmLogin = new JFrame();
+		frmLogin.getContentPane().setBackground(Color.WHITE);
+		frmLogin.setTitle("Etudiant");
+		String filename="./lib/tests.jpg";
+		frmLogin.setBackground(new Color(255, 255, 255));
+		frmLogin.setForeground(new Color(135, 206, 235));
+		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+		frmLogin.setType(Type.UTILITY);
+		frmLogin.setBounds(100, 100, 877, 651);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(null);
+		
+		JLabel lblCreerEtudiant = new JLabel("Supprimer Etudiant");
+		lblCreerEtudiant.setFont(new Font("Calibri", Font.BOLD, 18));
+		lblCreerEtudiant.setBounds(12, 22, 162, 45);
+		frmLogin.getContentPane().add(lblCreerEtudiant);
+		
+		JComboBox etudiantchoix = new JComboBox();
+		etudiantchoix.setBounds(363, 275, 305, 26);
+		frmLogin.getContentPane().add(etudiantchoix);
+		ArrayList<Etudiant> liste = mEtudiantDAO.getAll();
+		for (Etudiant etudiants : liste) {
+			etudiantchoix.addItem(etudiants);
+		}
+		etudiantchoix.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				newEtudiant=(Etudiant) etudiantchoix.getSelectedItem();
+			}
+		});
+		
+		JComboBox groupchoix = new JComboBox();
+		groupchoix.setBounds(363, 154, 305, 26);
+		frmLogin.getContentPane().add(groupchoix);
+		ArrayList<GroupeEtudiant> listg = mGroupeEtudiantDAO.getAll();
+		for (GroupeEtudiant groupeEtudiant : listg) {
+			groupchoix.addItem(groupeEtudiant);
+		}
+		groupchoix.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				  if(e.getStateChange() == ItemEvent.SELECTED){
+					  etudiantchoix.removeAllItems();
+					  idg=((GroupeEtudiant) groupchoix.getSelectedItem()).getIdGroupeEtudiant();
+					  ArrayList<Etudiant> liste = mEtudiantDAO.getbygroupe(idg);
+					
+					  for (Etudiant gEtudiant : liste) {
+						  etudiantchoix.addItem(gEtudiant);
+					}
+				  }
+				
+			}
+		});
+		
+		JLabel label = new JLabel("Groupe:");
+		label.setFont(new Font("Calibri", Font.BOLD, 16));
+		label.setBounds(191, 153, 107, 30);
+		frmLogin.getContentPane().add(label);
+		
+		JLabel lblEtudiant = new JLabel("Etudiant:");
+		lblEtudiant.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblEtudiant.setBounds(191, 274, 77, 30);
+		frmLogin.getContentPane().add(lblEtudiant);
+		
+		JButton btnNewButton = new JButton("Supprimer");
+		btnNewButton.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnNewButton.setBounds(168, 450, 203, 30);
+		frmLogin.getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+				mEtudiantDAO.delete(newEtudiant);
+			}
+		});
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnAnnuler.setBounds(513, 450, 203, 30);
+		frmLogin.getContentPane().add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
+		
+		frmLogin.setVisible(true);
+	
 	}
 	public Etudiant ModEtudiant(){
+		 JFrame frmLogin;
+		 JTextField tnom;
+		 JTextField tprenom;
+		 JTextField tinn;
+		 JTextField tphoto;
+		 
+		frmLogin = new JFrame();
+		frmLogin.getContentPane().setBackground(Color.WHITE);
+		frmLogin.setTitle("Etudiant");
+		String filename="./lib/tests.jpg";
+		frmLogin.setBackground(new Color(255, 255, 255));
+		frmLogin.setForeground(new Color(135, 206, 235));
+		frmLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
+		frmLogin.setType(Type.UTILITY);
+		frmLogin.setBounds(100, 100, 877, 651);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin.getContentPane().setLayout(null);
 		
-		mEtudiantDAO.update(newEtudiant);
+		JLabel lblNom = new JLabel("Nom:");
+		lblNom.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblNom.setBounds(172, 194, 107, 30);
+		frmLogin.getContentPane().add(lblNom);
+		
+		JLabel lblPrenom = new JLabel("Prenom:");
+		lblPrenom.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblPrenom.setBounds(172, 251, 107, 30);
+		frmLogin.getContentPane().add(lblPrenom);
+		
+		JLabel lblGroupe = new JLabel("Groupe:");
+		lblGroupe.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblGroupe.setBounds(172, 311, 107, 30);
+		frmLogin.getContentPane().add(lblGroupe);
+		
+		JLabel lblIneetudiant = new JLabel("INEEtudiant:");
+		lblIneetudiant.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblIneetudiant.setBounds(172, 368, 107, 30);
+		frmLogin.getContentPane().add(lblIneetudiant);
+		
+		JLabel lblCreerEtudiant = new JLabel("Modifier Etudiant");
+		lblCreerEtudiant.setFont(new Font("Calibri", Font.BOLD, 18));
+		lblCreerEtudiant.setBounds(12, 22, 162, 45);
+		frmLogin.getContentPane().add(lblCreerEtudiant);
+		
+		JLabel lblPhoto = new JLabel("Photo");
+		lblPhoto.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblPhoto.setBounds(172, 424, 107, 30);
+		frmLogin.getContentPane().add(lblPhoto);
+		
+		tnom = new JTextField();
+		tnom.setFont(new Font("Calibri", Font.BOLD, 16));
+		tnom.setBounds(405, 196, 327, 27);
+		frmLogin.getContentPane().add(tnom);
+		tnom.setColumns(10);
+		
+		tprenom = new JTextField();
+		tprenom.setFont(new Font("Calibri", Font.BOLD, 16));
+		tprenom.setColumns(10);
+		tprenom.setBounds(405, 253, 327, 27);
+		frmLogin.getContentPane().add(tprenom);
+		
+		tinn = new JTextField();
+		tinn.setFont(new Font("Calibri", Font.BOLD, 16));
+		tinn.setColumns(10);
+		tinn.setBounds(405, 370, 327, 27);
+		frmLogin.getContentPane().add(tinn);
+		
+		tphoto = new JTextField();
+		tphoto.setFont(new Font("Calibri", Font.BOLD, 16));
+		tphoto.setColumns(10);
+		tphoto.setBounds(405, 426, 327, 27);
+		frmLogin.getContentPane().add(tphoto);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(405, 312, 327, 27);
+		frmLogin.getContentPane().add(comboBox);
+		
+		JButton btnNewButton = new JButton("Modifier");
+		btnNewButton.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnNewButton.setBounds(172, 516, 203, 30);
+		frmLogin.getContentPane().add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				newEtudiant.setAdressePhoto(tphoto.getText());
+				newEtudiant.setNomEtudiant(tnom.getText());
+				newEtudiant.setPrenomEtudiant(tprenom.getText());
+				newEtudiant.setINEEtudiant(Integer.valueOf(tinn.getText()));
+				newEtudiant.setIdGroupeEtudiant(((Etudiant)comboBox.getSelectedItem()).getIdGroupeEtudiant());
+				
+				mEtudiantDAO.update(newEtudiant);
+			}
+		});
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnAnnuler.setBounds(516, 516, 203, 30);
+		frmLogin.getContentPane().add(btnAnnuler);
+		btnAnnuler.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				  Modifiers myModifiers = new Modifiers("Admin pour modifier des columns");
+		    		myModifiers.setVisible(true);
+					myModifiers.runTest();
+			}
+		});
+		
+		JComboBox etudiantchoix = new JComboBox();
+		etudiantchoix.setBounds(489, 82, 227, 26);
+		frmLogin.getContentPane().add(etudiantchoix);
+		ArrayList<Etudiant> liste = mEtudiantDAO.getAll();
+		for (Etudiant etudiants : liste) {
+			etudiantchoix.addItem(etudiants);
+		}
+		etudiantchoix.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				tnom.setText(((Etudiant)etudiantchoix.getSelectedItem()).getNomEtudiant());
+				tinn.setText(((Etudiant)etudiantchoix.getSelectedItem()).getINEEtudiant()+"");
+				tprenom.setText(((Etudiant)etudiantchoix.getSelectedItem()).getPrenomEtudiant());
+				tphoto.setText(((Etudiant)etudiantchoix.getSelectedItem()).getAdressePhoto());
+			}
+		});
+		
+		JComboBox groupchoix = new JComboBox();
+		groupchoix.setBounds(128, 82, 230, 26);
+		frmLogin.getContentPane().add(groupchoix);
+		ArrayList<GroupeEtudiant> listg = mGroupeEtudiantDAO.getAll();
+		for (GroupeEtudiant groupeEtudiant : listg) {
+			groupchoix.addItem(groupeEtudiant);
+		}
+		groupchoix.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				  if(e.getStateChange() == ItemEvent.SELECTED){
+					  etudiantchoix.removeAllItems();
+					  idg=((GroupeEtudiant) groupchoix.getSelectedItem()).getIdGroupeEtudiant();
+					  ArrayList<Etudiant> liste = mEtudiantDAO.getbygroupe(idg);
+					
+					  for (Etudiant gEtudiant : liste) {
+						  etudiantchoix.addItem(gEtudiant);
+					}
+				  }
+				
+			}
+		});
+		
+		
+		JLabel label = new JLabel("Groupe:");
+		label.setFont(new Font("Calibri", Font.BOLD, 16));
+		label.setBounds(40, 81, 107, 30);
+		frmLogin.getContentPane().add(label);
+		
+		JLabel lblEtudiant = new JLabel("Etudiant:");
+		lblEtudiant.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblEtudiant.setBounds(392, 81, 77, 30);
+		frmLogin.getContentPane().add(lblEtudiant);
+		
+		frmLogin.setVisible(true);
 		return newEtudiant;
 	}
 	

@@ -301,16 +301,18 @@ public class Modifiers extends JFrame implements ActionListener{
 
 			break;
 		case "Ajouter Etudiant":
-			System.out.println("11");
+			dispose();
+			myfentres.CrEtudiant();
 
 			break;
 		case "Supperimer Etudiant":
-			System.out.println("12");
+			dispose();
+			myfentres.SupEtudiant();
 
 			break;
 		case "Modier Etudiant":
-			System.out.println("13");
-
+			dispose();
+			myfentres.ModEtudiant();
 			break;
 		
 		default:

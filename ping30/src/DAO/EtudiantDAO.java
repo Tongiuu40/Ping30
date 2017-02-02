@@ -5,13 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import ping30.Enseignant;
 import ping30.Etudiant;
 
 public class EtudiantDAO extends DAO<Etudiant>{
 	public Etudiant create(Etudiant obj){
 		try {
 			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE)
-					.executeQuery("SELECT  last_insert_id() as id from etudiant");
+					.executeQuery("SELECT idEtudiant as id from etudiant  order by idEtudiant Desc");
 			if(result.first()){
 				int id = result.getInt("id");
 				id++;
@@ -31,6 +32,64 @@ public class EtudiantDAO extends DAO<Etudiant>{
 			e.printStackTrace();
 		}
 		return obj;
+	}
+	public ArrayList<Etudiant> getAll(){
+		ArrayList<Etudiant> list= new ArrayList<Etudiant>();
+		try {
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
+					.executeQuery("SELECT * FROM etudiant ");
+			if(result!=null){
+			while(result.next()){
+				
+			    
+				Etudiant enseignant = new Etudiant(
+						result.getInt("idEtudiant"),
+						result.getString("NomEtudiant"),
+						result.getString("prenomEtudiant"),
+						result.getInt("idGroupeEtudiant"),
+						result.getInt("INEEtudiant"),
+						result.getString("adressePhoto")
+						);
+				
+				list.add(enseignant);
+				}
+		
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
+	public ArrayList<Etudiant> getbygroupe(int i){
+		ArrayList<Etudiant> list= new ArrayList<Etudiant>();
+		try {
+			ResultSet result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
+					.executeQuery("SELECT * FROM etudiant where idGroupeEtudiant = "+i);
+			if(result!=null){
+			while(result.next()){
+				
+			    
+				Etudiant enseignant = new Etudiant(
+						result.getInt("idEtudiant"),
+						result.getString("NomEtudiant"),
+						result.getString("prenomEtudiant"),
+						result.getInt("idGroupeEtudiant"),
+						result.getInt("INEEtudiant"),
+						result.getString("adressePhoto")
+						);
+				
+				list.add(enseignant);
+				}
+		
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+		
 	}
 	
 
